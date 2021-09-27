@@ -7,23 +7,20 @@ import * as d3 from 'd3';
 
 import React from 'react';
 
-export default function Treemap({ width, height }) {
-  const [kickStarterPledges] = useState(
-    'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/kickstarter-funding-data.json'
+export default function TreemapMovieSales({ width, height }) {
+  const [movieSales] = useState(
+    'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/movie-data.json'
   );
-  // const [movieSales] = useState(
-  //   'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/movie-data.json'
-  // );
   // const [videoGameSales] = useState(
   //   'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/video-game-sales-data.json'
   // );
   const svgRef = useRef(null);
   const legendRef = useRef(null);
-  let dataKickStarter;
+  let dataMovieSales;
 
   const drawTreeMap = () => {
     const root = d3
-      .hierarchy(dataKickStarter)
+      .hierarchy(dataMovieSales)
       .sum((item) => item.value)
       .sort((a, b) => b.value - a.value);
 
@@ -44,7 +41,7 @@ export default function Treemap({ width, height }) {
     const fader = (color) => d3.interpolateRgb(color, '#fff')(0.2);
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10.map(fader));
 
-    const numberRound = (num) => {
+    const validNumber = (num) => {
       return num.toString().replace(/(?=\d)(?=(\d{3})+(?!\d))/g, ' ');
     };
     const tooltip = d3
@@ -75,10 +72,9 @@ export default function Treemap({ width, height }) {
           .style('left', x + 'px')
           .style('top', y + 'px')
           .style('position', 'absolute')
-
           .style('display', 'inline-block')
           .html(
-            `Name: ${item.data.name} <br /> Cost: ${numberRound(
+            `Name: ${item.data.name} <br /> Cost: ${validNumber(
               Math.round(item.data.value)
             )}$ <br /> Category: ${item.data.category}`
           );
@@ -110,11 +106,11 @@ export default function Treemap({ width, height }) {
 
     legend
       .append('rect')
-      .attr('class', 'legend-item')
       .attr('width', 12)
       .attr('height', 12)
       .attr('x', 12)
       .attr('y', (item, i) => 12 * 2 * i)
+      .attr('class', 'legend-item')
       .attr('fill', (item) => colorScale(item));
 
     legend
@@ -128,30 +124,28 @@ export default function Treemap({ width, height }) {
     return { treeMapRoot, innerText };
   };
 
-  //   const renderTreeMap = () => {
-  //     const nodes = svg.selectAll;
-  //   };
-
   useEffect(() => {
-    d3.json(kickStarterPledges).then((data, error) => {
+    d3.json(movieSales).then((data, error) => {
       if (error) {
       } else {
-        dataKickStarter = data;
+        dataMovieSales = data;
         // Need to add this to the value for cut to 4 numbers .toFixed(4)
-        console.log(dataKickStarter);
+        console.log(dataMovieSales);
         drawTreeMap();
       }
     });
-  }, [dataKickStarter]);
+  }, [dataMovieSales]);
   return (
-    <div style={{ marginBottom: '2em' }}>
-      <h1 id='title'>Visualize Data with a Treemap Diagram</h1>
-      <div id='description'>
-        <p>KickStarterDledges</p>
+    <div className='border-4 border-red-600 mt-6 rounded-b-lg'>
+      <h1 id='title' className='text-5xl p-4 font-bold mt-6'>
+        Visualize Data with a Treemap Diagram
+      </h1>
+      <div id='description' className='text-3xl p-4 font-bold'>
+        <p>MovieSales</p>
         {/* <p>MoviesSales</p>
         <p>VideoGamesSales</p> */}
       </div>
-      <svg ref={svgRef}></svg>
+      <svg ref={svgRef} className='m-6 '></svg>
       <h2>Legend by category</h2>
       <svg ref={legendRef}></svg>
     </div>

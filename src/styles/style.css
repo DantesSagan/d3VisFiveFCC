@@ -1,0 +1,146 @@
+/* #ID */
+
+#main {
+  font-family: 'Orbitron', sans-serif;
+  background-color: #ffe53b;
+  background-image: linear-gradient(147deg, #ffe53b 0%, #ff2525 74%);
+  border: 5px solid black;
+  border-radius: 35px;
+  color: white;
+}
+#expression {
+  color: orange;
+}
+
+/* .CLASS */
+.main {
+  color: black;
+}
+.text-shadow {
+  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+
+.btn-grad:hover {
+  background-position: right center; /* change the direction of the change here */
+  color: #fff;
+  text-decoration: none;
+}
+
+.button {
+  margin: 10px;
+  padding: 5px 25px;
+  text-align: center;
+  transition: 0.5s;
+  background-size: 200% auto;
+  color: black;
+  box-shadow: 0 0 20px #eee;
+  border-radius: 10px;
+  display: block;
+  background-image: linear-gradient(
+    to right,
+    #b2fefa 0%,
+    #0ed2f7 81%,
+    #b2fefa 100%
+  );
+}
+
+.button:hover {
+  transform: scale(1.05);
+  background-position: right center; /* change the direction of the change here */
+  color: white;
+  text-shadow: -1px 0 black, 0 0px black, 1px 0 black, 0 -1px black;
+}
+.button:active {
+  transform: scale(1.05);
+  transition: 0.25;
+  boxshadow: '3px 3px 5px black';
+}
+.buttonM {
+  border: 1px solid black;
+  border-radius: 15px;
+}
+.buttonM:active {
+  transform: scale(0.85);
+  transition: 0.25;
+  boxshadow: '3px 3px 5px black';
+}
+.output {
+  font-size: 1.5em;
+  border: 1px solid black;
+  border-radius: 15px;
+  padding: 10px 0px 10px 0px;
+  margin-bottom: 15px;
+}
+.gridCol {
+  display: grid;
+  grid-temptale-columns: repeat(3, 1fr);
+  font-size: 1.5em;
+}
+.arrowScroll {
+  transition: all 0.8s ease-out;
+  height: '100px';
+  width: '100px';
+  cursor: 'pointer';
+  padding: '5px';
+  position: 'fixed';
+  right: '100px';
+  bottom: '100px';
+  fill: ;
+}
+
+/* @MEDIA */
+@media only screen and (max-width: 1680px) {
+  .gridCol {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (max-width: 1600px) {
+  .gridCol {
+    font-size: 1.25em;
+  }
+}
+@media only screen and (max-width: 1500px) {
+  .gridCol {
+    font-size: 1.25em;
+  }
+}
+
+@media only screen and (max-width: 924px) {
+  .gridCol {
+    font-size: 1.05em;
+  }
+}
+@media only screen and (max-width: 850px) {
+  .gridCol {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+@media only screen and (max-width: 425px) {
+  .gridCol {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .gridCol {
+    display: flex;
+    flex-direction: column;
+  }
+}
+@media only screen and (max-width: 320px) {
+  .gridCol {
+    display: flex;
+    flex-direction: column;
+  }
+  .arrowScroll {
+    height: '50px';
+    width: '50px';
+    cursor: 'pointer';
+    padding: '5px';
+    position: 'fixed';
+    right: '50px';
+    bottom: '50px';
+  }
+}

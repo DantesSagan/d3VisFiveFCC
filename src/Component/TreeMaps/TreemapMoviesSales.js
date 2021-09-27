@@ -100,7 +100,7 @@ export default function TreemapMovieSales({ width, height }) {
     categories = categories.filter(
       (category, index, self) => self.indexOf(category) === index
     );
-    legendContainer.attr('width', width).attr('height', height);
+    legendContainer.attr('width', width).attr('height', height - 500);
 
     const legend = legendContainer.selectAll('g').data(categories).join('g');
 

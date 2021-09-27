@@ -10,6 +10,7 @@ import './App.css';
 const Main = lazy(() => import('./main'));
 const KickStarterMap = lazy(() => import('./Component/KickStarterMap'));
 const MovieSalesMap = lazy(() => import('./Component/MovieSalesMap'));
+const GameSalesMap = lazy(() => import('./Component/GameSalesMap'));
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route exact path='/' component={Main} />
           <Route path={ROUTES.KickStarterMap} component={KickStarterMap} />
           <Route path={ROUTES.TreemapMovieSales} component={MovieSalesMap} />
+          <Route path={ROUTES.GameSalesMap} component={GameSalesMap} />
         </Switch>
       </Suspense>
     </BrowserRouter>

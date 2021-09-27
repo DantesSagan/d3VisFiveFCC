@@ -17,7 +17,7 @@ export default function Header() {
               <Link to={ROUTES.TreemapMovieSales}>MovieSales</Link>
             </div>
             <div className='button p-2'>
-              <Link to={ROUTES}>VideoGameSales</Link>
+              <Link to={ROUTES.GameSalesMap}>VideoGameSales</Link>
             </div>
           </div>
         </nav>

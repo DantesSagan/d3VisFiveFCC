@@ -7,23 +7,17 @@ import * as d3 from 'd3';
 
 import React from 'react';
 
-export default function Treemap({ width, height }) {
-  const [kickStarterPledges] = useState(
-    'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/kickstarter-funding-data.json'
+export default function TreemapMovieSales({ width, height }) {
+  const [videoGameSales] = useState(
+    'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/video-game-sales-data.json'
   );
-  // const [movieSales] = useState(
-  //   'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/movie-data.json'
-  // );
-  // const [videoGameSales] = useState(
-  //   'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/video-game-sales-data.json'
-  // );
   const svgRef = useRef(null);
   const legendRef = useRef(null);
-  let dataKickStarter;
+  let dataGameSales;
 
   const drawTreeMap = () => {
     const root = d3
-      .hierarchy(dataKickStarter)
+      .hierarchy(dataGameSales)
       .sum((item) => item.value)
       .sort((a, b) => b.value - a.value);
 
@@ -44,9 +38,9 @@ export default function Treemap({ width, height }) {
     const fader = (color) => d3.interpolateRgb(color, '#fff')(0.2);
     const colorScale = d3.scaleOrdinal(d3.schemeCategory10.map(fader));
 
-    const validNumber = (num) => {
-      return num.toString().replace(/(?=\d)(?=(\d{3})+(?!\d))/g, ' ');
-    };
+    // const validNumber = (num) => {
+    //   return num.toString().replace(/(?=\d)(?=(\d{3})+(?!\d))/g, ' ');
+    // };
     const tooltip = d3
       .select('body')
       .append('div')
@@ -77,9 +71,9 @@ export default function Treemap({ width, height }) {
           .style('position', 'absolute')
           .style('display', 'inline-block')
           .html(
-            `Name: ${item.data.name} <br /> Cost: ${validNumber(
-              Math.round(item.data.value)
-            )}$ <br /> Category: ${item.data.category}`
+            `Name: ${item.data.name} <br /> Value: ${Math.round(
+              item.data.value
+            )} <br /> Category: ${item.data.category}`
           );
       })
       .on('mouseout', () => {
@@ -128,25 +122,23 @@ export default function Treemap({ width, height }) {
   };
 
   useEffect(() => {
-    d3.json(kickStarterPledges).then((data, error) => {
+    d3.json(videoGameSales).then((data, error) => {
       if (error) {
       } else {
-        dataKickStarter = data;
+        dataGameSales = data;
         // Need to add this to the value for cut to 4 numbers .toFixed(4)
-        console.log(dataKickStarter);
+        console.log(dataGameSales);
         drawTreeMap();
       }
     });
-  }, [dataKickStarter]);
+  }, [dataGameSales]);
   return (
-    <div className='border-4 border-red-600 mt-6 rounded-b-lg mb-6'>
+    <div className='border-4 border-red-600 mt-6 rounded-b-lg'>
       <h1 id='title' className='text-5xl p-4 font-bold mt-6'>
         Visualize Data with a Treemap Diagram
       </h1>
       <div id='description' className='text-3xl p-4 font-bold'>
-        <p>KickStarterPledges</p>
-        {/* <p>MoviesSales</p>
-        <p>VideoGamesSales</p> */}
+        <p>GameSales</p>
       </div>
       <svg ref={svgRef} className='m-6 '></svg>
       <h2>Legend by category</h2>

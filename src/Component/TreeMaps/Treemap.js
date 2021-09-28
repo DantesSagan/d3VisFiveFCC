@@ -11,12 +11,6 @@ export default function Treemap({ width, height }) {
   const [kickStarterPledges] = useState(
     'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/kickstarter-funding-data.json'
   );
-  // const [movieSales] = useState(
-  //   'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/movie-data.json'
-  // );
-  // const [videoGameSales] = useState(
-  //   'https://cdn.freecodecamp.org/testable-projects-fcc/data/tree_map/video-game-sales-data.json'
-  // );
   const svgRef = useRef(null);
   const legendRef = useRef(null);
   let dataKickStarter;
@@ -59,8 +53,8 @@ export default function Treemap({ width, height }) {
       .attr('data-name', (item) => item.data.name)
       .attr('data-category', (item) => item.data.category)
       .attr('data-value', (item) => item.data.value)
-      .attr('width', (item) => item.x1 - item.x0)
-      .attr('height', (item) => item.y1 - item.y0)
+      .attr('width', (item) => item.x1 - item.x0 - 0)
+      .attr('height', (item) => item.y1 - item.y0 - 0)
       .attr('fill', (item) => colorScale(item.data.category))
       .on('mousemove', (event, item) => {
         const [x, y] = pointer(event);
@@ -72,8 +66,8 @@ export default function Treemap({ width, height }) {
           .attr('data-value', item.data.value);
 
         tooltip
-          .style('left', x + 'px')
-          .style('top', y + 'px')
+          .style('left', x + width + 'px')
+          .style('top', y + height + 'px')
           .style('position', 'absolute')
           .style('display', 'inline-block')
           .html(
@@ -105,7 +99,11 @@ export default function Treemap({ width, height }) {
     );
     legendContainer.attr('width', width).attr('height', height - 300);
 
-    const legend = legendContainer.selectAll('g').data(categories).join('g');
+    const legend = legendContainer
+      .selectAll('g')
+      .data(categories)
+      .join('g')
+      .attr('id', 'legend');
 
     legend
       .append('rect')
@@ -118,7 +116,6 @@ export default function Treemap({ width, height }) {
 
     legend
       .append('text')
-      .attr('id', 'legend')
       .attr('transform', `translate(0, ${12})`)
       .attr('x', 12 * 3)
       .attr('y', (_, i) => 12 * 2 * i)
@@ -145,8 +142,6 @@ export default function Treemap({ width, height }) {
       </h1>
       <div id='description' className='text-3xl p-4 font-bold'>
         <p>KickStarterPledges</p>
-        {/* <p>MoviesSales</p>
-        <p>VideoGamesSales</p> */}
       </div>
       <svg ref={svgRef} className='m-6 '></svg>
       <h2>Legend by category</h2>

@@ -19,7 +19,7 @@ export default function TreemapMovieSales({ width, height }) {
     const root = d3
       .hierarchy(dataGameSales)
       .sum((item) => item.value)
-      .sort((a, b) => b.value - a.value);
+      .sort((a, b) => b.height - a.height || b.value - a.value);
 
     const svg = d3.select(svgRef.current);
     svg.attr('width', width).attr('height', height);
@@ -53,8 +53,8 @@ export default function TreemapMovieSales({ width, height }) {
       .attr('data-name', (item) => item.data.name)
       .attr('data-category', (item) => item.data.category)
       .attr('data-value', (item) => item.data.value)
-      .attr('width', (item) => item.x1 - item.x0)
-      .attr('height', (item) => item.y1 - item.y0)
+      .attr('width', (item) => item.x1 - item.x0 - 0)
+      .attr('height', (item) => item.y1 - item.y0 - 0)
       .attr('fill', (item) => colorScale(item.data.category))
       .on('mousemove', (event, item) => {
         const [x, y] = pointer(event);
@@ -66,8 +66,8 @@ export default function TreemapMovieSales({ width, height }) {
           .attr('data-value', item.data.value);
 
         tooltip
-          .style('left', x + 'px')
-          .style('top', y + 'px')
+          .style('left', x + width + 'px')
+          .style('top', y + height + 'px')
           .style('position', 'absolute')
           .style('display', 'inline-block')
           .html(
@@ -99,7 +99,11 @@ export default function TreemapMovieSales({ width, height }) {
     );
     legendContainer.attr('width', width).attr('height', height - 300);
 
-    const legend = legendContainer.selectAll('g').data(categories).join('g');
+    const legend = legendContainer
+      .selectAll('g')
+      .data(categories)
+      .join('g')
+      .attr('id', 'legend');
 
     legend
       .append('rect')
@@ -112,7 +116,6 @@ export default function TreemapMovieSales({ width, height }) {
 
     legend
       .append('text')
-      .attr('id', 'legend')
       .attr('transform', `translate(0, ${12})`)
       .attr('x', 12 * 3)
       .attr('y', (_, i) => 12 * 2 * i)

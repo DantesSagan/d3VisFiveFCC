@@ -7,8 +7,8 @@ const Fallback = () => (
     <Loader
       type='ThreeDots'
       color='red'
-      height={80}
-      width={80}
+      height={120}
+      width={120}
       timeout={3000}
     />
   </FallbackContainer>

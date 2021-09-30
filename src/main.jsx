@@ -17,8 +17,11 @@ export default function Main() {
         <br />
         <span>
           Coded and designed by
-          <a href='https://github.com/DantesSagan' className='font-bold p-2'>
-            @DantesSagan
+          <a
+            href='https://github.com/DantesSagan/d3VisFiveFCC'
+            className='font-bold p-2 underline'
+          >
+            @DantesSagan & d3VisFiveFCC
           </a>
         </span>
       </span>

@@ -66,8 +66,8 @@ export default function Treemap({ width, height }) {
           .attr('data-value', item.data.value);
 
         tooltip
-          .style('left', x + width + 'px')
-          .style('top', y + height + 'px')
+          .style('left', x + item.x1 + 250 + 'px')
+          .style('top', y + item.y0 + 450 + 'px')
           .style('position', 'absolute')
           .style('display', 'inline-block')
           .html(

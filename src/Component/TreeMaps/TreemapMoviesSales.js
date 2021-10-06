@@ -18,14 +18,16 @@ export default function TreemapMovieSales({ width, height }) {
   const drawTreeMap = () => {
     const root = d3
       .hierarchy(dataMovieSales)
-      .sum((item) => item.value)
-      .sort((a, b) => b.value - a.value);
+      .sum((item) => (item.children ? 0 : item.value))
+      .sort((a, b) => b.height - a.height || b.value - a.value);
 
     const svg = d3.select(svgRef.current);
     svg.attr('width', width).attr('height', height);
     svg.selectAll('g').remove();
 
-    const treeMapRoot = treemap().size([width, height]).padding(1)(root);
+    const treeMapRoot = treemap().size([width, height]).padding(1).round(true)(
+      root
+    );
 
     const nodes = svg
       .selectAll('g')
@@ -55,6 +57,8 @@ export default function TreemapMovieSales({ width, height }) {
       .attr('data-value', (item) => item.data.value)
       .attr('width', (item) => item.x1 - item.x0 - 0)
       .attr('height', (item) => item.y1 - item.y0 - 0)
+      .attr('rx', 3)
+      .attr('ry', 3)
       .attr('fill', (item) => colorScale(item.data.category))
       .on('mousemove', (event, item) => {
         const [x, y] = pointer(event);
@@ -66,8 +70,8 @@ export default function TreemapMovieSales({ width, height }) {
           .attr('data-value', item.data.value);
 
         tooltip
-          .style('left', x + width + 'px')
-          .style('top', y + height + 'px')
+          .style('left', x + item.x1 + 250 + 'px')
+          .style('top', y + item.y0 + 450 + 'px')
           .style('position', 'absolute')
 
           .html(
@@ -136,14 +140,14 @@ export default function TreemapMovieSales({ width, height }) {
     });
   }, [dataMovieSales]);
   return (
-    <div className='border-4 border-red-600 mt-6 rounded-b-lg'>
+    <div className='border-4 border-red-600 mt-6 rounded-b-lg mb-6'>
       <h1 id='title' className='text-5xl p-4 font-bold mt-6'>
         Visualize Data with a Treemap Diagram
       </h1>
       <div id='description' className='text-3xl p-4 font-bold'>
         <p>MovieSales</p>
       </div>
-      <svg ref={svgRef} className='m-6 '></svg>
+      <svg ref={svgRef} className='m-8'></svg>
       <h2>Legend by category</h2>
       <svg ref={legendRef}></svg>
     </div>

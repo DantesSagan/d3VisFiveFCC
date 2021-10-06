@@ -66,8 +66,8 @@ export default function TreemapMovieSales({ width, height }) {
           .attr('data-value', item.data.value);
 
         tooltip
-          .style('left', x + width + 'px')
-          .style('top', y + height + 'px')
+          .style('left', x + item.x1 + 250 + 'px')
+          .style('top', y + item.y0 + 450 + 'px')
           .style('position', 'absolute')
           .style('display', 'inline-block')
           .html(
@@ -136,7 +136,7 @@ export default function TreemapMovieSales({ width, height }) {
     });
   }, [dataGameSales]);
   return (
-    <div className='border-4 border-red-600 mt-6 rounded-b-lg'>
+    <div className='border-4 border-red-600 mt-6 rounded-b-lg mb-6'>
       <h1 id='title' className='text-5xl p-4 font-bold mt-6'>
         Visualize Data with a Treemap Diagram
       </h1>

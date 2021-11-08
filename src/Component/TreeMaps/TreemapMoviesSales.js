@@ -19,8 +19,8 @@ export default function TreemapMovieSales({ width, height }) {
     const root = d3
       .hierarchy(dataMovieSales)
       .sum((item) => (item.children ? 0 : item.value))
-      .sort((a, b) => b.height - a.height || b.value - a.value);
-
+      .sort((a, b) => b.value - a.value);
+    console.log(root);
     const svg = d3.select(svgRef.current);
     svg.attr('width', width).attr('height', height);
     svg.selectAll('g').remove();

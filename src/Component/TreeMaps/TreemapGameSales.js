@@ -127,6 +127,7 @@ export default function TreemapMovieSales({ width, height }) {
   useEffect(() => {
     d3.json(videoGameSales).then((data, error) => {
       if (error) {
+        console.log(error);
       } else {
         dataGameSales = data;
         // Need to add this to the value for cut to 4 numbers .toFixed(4)
